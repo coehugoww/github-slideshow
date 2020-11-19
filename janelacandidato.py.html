@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>janelacandidato.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+janelacandidato.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">PySimpleGUI </span><span class="s0">as </span><span class="s1">sg</span>
+<span class="s0">import </span><span class="s1">sqlite3</span>
+<span class="s1">conn = sqlite3.connect(</span><span class="s2">'urna.db'</span><span class="s1">)</span>
+<span class="s1">cur = conn.cursor()</span>
+
+<span class="s0">class </span><span class="s1">TelaPython:</span>
+    <span class="s0">def </span><span class="s1">__init__(self):</span>
+        <span class="s1">sg.change_look_and_feel(</span><span class="s2">'DarkBlack'</span><span class="s1">)</span>
+
+        <span class="s1">layout = [</span>
+            <span class="s1">[sg.Text(</span><span class="s2">'Nome do candidato'</span><span class="s0">, </span><span class="s1">size= (</span><span class="s3">10</span><span class="s0">,</span><span class="s3">0</span><span class="s1">))</span><span class="s0">, </span><span class="s1">sg.Input(size=(</span><span class="s3">15</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">, </span><span class="s1">key=</span><span class="s2">'nome_candidato'</span><span class="s1">)]</span><span class="s0">,</span>
+            <span class="s1">[sg.Text(</span><span class="s2">'código do candidato'</span><span class="s0">, </span><span class="s1">size=(</span><span class="s3">10</span><span class="s0">,</span><span class="s3">0</span><span class="s1">))</span><span class="s0">, </span><span class="s1">sg.Input(size=(</span><span class="s3">5</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">, </span><span class="s1">key= </span><span class="s2">'cod_candidato'</span><span class="s1">)]</span><span class="s0">,</span>
+            <span class="s1">[sg.Text(</span><span class="s2">'codigo do cargo'</span><span class="s0">, </span><span class="s1">size=(</span><span class="s3">10</span><span class="s0">,</span><span class="s3">0</span><span class="s1">))</span><span class="s0">, </span><span class="s1">sg.Input(size=(</span><span class="s3">8</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">, </span><span class="s1">key= </span><span class="s2">'cod_carg'</span><span class="s1">)]</span><span class="s0">,</span>
+            <span class="s1">[sg.Text(</span><span class="s2">'código do partido'</span><span class="s0">, </span><span class="s1">size=(</span><span class="s3">10</span><span class="s0">,</span><span class="s3">0</span><span class="s1">))</span><span class="s0">, </span><span class="s1">sg.Input(size=(</span><span class="s3">8</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">, </span><span class="s1">key= </span><span class="s2">'cod_partido'</span><span class="s1">)]</span><span class="s0">,</span>
+            <span class="s1">[sg.Button(</span><span class="s2">'Cadastrar'</span><span class="s1">)]</span><span class="s0">,</span>
+            <span class="s1">[sg.Output(size=(</span><span class="s3">30</span><span class="s0">,</span><span class="s3">20</span><span class="s1">))]</span>
+        <span class="s1">]</span>
+
+        <span class="s1">self.janela = sg.Window(</span><span class="s2">'Cadastro de candidatos'</span><span class="s1">).layout(layout)</span>
+
+    <span class="s0">def </span><span class="s1">Iniciar(self):</span>
+        <span class="s0">while True</span><span class="s1">:</span>
+            <span class="s1">self.button</span><span class="s0">, </span><span class="s1">self.values = self.janela.Read()</span>
+            <span class="s1">nome_candidato = self.values[</span><span class="s2">'nome_candidato'</span><span class="s1">]</span>
+            <span class="s1">cod_candidato = self.values[</span><span class="s2">'cod_candidato'</span><span class="s1">]</span>
+            <span class="s1">cod_carg = self.values[</span><span class="s2">'cod_carg'</span><span class="s1">]</span>
+            <span class="s1">cod_partido = self.values[</span><span class="s2">'cod_partido'</span><span class="s1">]</span>
+            <span class="s1">print(</span><span class="s2">f'nome_candidato: </span><span class="s0">{</span><span class="s1">nome_candidato</span><span class="s0">}</span><span class="s2">'</span><span class="s1">)</span>
+            <span class="s1">print(</span><span class="s2">f'cod_candidato: </span><span class="s0">{</span><span class="s1">cod_candidato</span><span class="s0">}</span><span class="s2">'</span><span class="s1">)</span>
+            <span class="s1">print(</span><span class="s2">f'cod_carg: </span><span class="s0">{</span><span class="s1">cod_carg</span><span class="s0">}</span><span class="s2">'</span><span class="s1">)</span>
+            <span class="s1">print(</span><span class="s2">f'cod_partido: </span><span class="s0">{</span><span class="s1">cod_partido</span><span class="s0">}</span><span class="s2">'</span><span class="s1">)</span>
+
+<span class="s1">sql = </span><span class="s2">''' 
+SELECT nome_candidato, cod_candidato, cod_carg, cod_partido FROM candidato 
+'''</span>
+<span class="s1">cursor.execute(sql)</span>
+
+<span class="s0">for </span><span class="s1">(nome_candidato</span><span class="s0">, </span><span class="s1">cod_candidato</span><span class="s0">, </span><span class="s1">cod_carg</span><span class="s0">, </span><span class="s1">cod_partido) </span><span class="s0">in </span><span class="s1">cursor:</span>
+    <span class="s1">print(nome_candidato</span><span class="s0">, </span><span class="s1">cod_candidato</span><span class="s0">, </span><span class="s1">cod_carg</span><span class="s0">, </span><span class="s1">cod_partido)</span>
+
+<span class="s1">conector.conmit()</span>
+<span class="s1">cursor.close()</span>
+<span class="s1">conector.close()</span>
+
+
+<span class="s1">tela = TelaPython()</span>
+<span class="s1">tela.Iniciar()</span>
+</pre>
+</body>
+</html>
